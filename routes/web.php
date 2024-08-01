@@ -18,6 +18,16 @@ Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+
+Route::get('/feature1', function () {
+    return Inertia::render('Feature1/Index');
+})->middleware(['auth', 'verified'])->name('feature1.index');
+
+Route::get('/feature2', function () {
+    return Inertia::render('Feature2/Index');
+})->middleware(['auth', 'verified'])->name('feature2.index');
+
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

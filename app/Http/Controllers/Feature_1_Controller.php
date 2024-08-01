@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\FeatureResource;
 use App\Models\Feature;
-use App\Models\UserFeature;
+use App\Models\UsedFeature;
 use Illuminate\Http\Request;
 
 class Feature1Controller extends Controller
@@ -43,7 +43,7 @@ class Feature1Controller extends Controller
 
             $user->decreaseCredits($this->feature->required_credits);
 
-            UserFeature::create([
+            UsedFeature::create([
                 'feature_id' => $this->feature->id,
                 'user_id' => $user->id,
                 'credits' => $this->feature->required_credits,

@@ -38,7 +38,7 @@ export default function Index({feature, answer})
                 </div>
 
                 <div className="flex items-center justify-end mt-4 col-span-2">
-
+                    <PrimaryButton className="ms-4" disabled={processing}>Calculate</PrimaryButton>
                 </div>
             </form>
         </FeatureComponent>

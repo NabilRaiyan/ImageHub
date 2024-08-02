@@ -23,6 +23,7 @@ export default function Index({feature, answer})
             },
         });
     };
+    
 
     return (
         <FeatureComponent feature={feature} answer={answer}>

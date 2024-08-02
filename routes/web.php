@@ -28,6 +28,7 @@ Route::get('/feature2', function () {
 })->middleware(['auth', 'verified'])->name('feature2.index');
 
 
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

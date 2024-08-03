@@ -9,6 +9,6 @@ class Feature extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['image', 'name', 'route_name', 'description', 'required_credits', 'active'];
+    protected $fillable = ['image', 'route_name', 'name', 'description', 'required_credits', 'active'];
 
 }

@@ -23,7 +23,7 @@ export default function Feature({ feature, answer, children }) {
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     {answer !== null && (
                         <div className="text-white mb-3 py-3 rounded bg-emerald-600 text-xl">
-                            Result of Calculation: {answer}
+                            <p className='ml-3'>Result of Calculation: {answer}</p>
                         </div>
                     )}
                     <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg dark:bg-gray-800 relative">

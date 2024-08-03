@@ -15,7 +15,7 @@ export default function Feature({ feature, answer, children }) {
     return (
         <AuthenticatedLayout
             user={auth.user}
-            header={<h2 className="font-semibold text-xl text-gray-800 dark:text-gray-800 leading-tight">{feature.name}</h2>}
+            header={<h2 className="font-semibold text-xl text-orange-600 leading-tight">{feature.name}</h2>}
         >
             <Head title="Feature 1" />
 
@@ -40,8 +40,8 @@ export default function Feature({ feature, answer, children }) {
                         )}
 
                         <div className='p-8 text-gray-400 border-b pb-4'>
-                            <p>{feature.description}</p>
-                            <p className='text-sm italic text-right'>Requires {feature.required_credits} credits</p>
+                            <p className='text-orange-200'>{feature.description}</p>
+                            <p className='text-sm italic text-right text-orange-300'>Requires {feature.required_credits} credits</p>
                         </div>
                         {children}
                     </div>

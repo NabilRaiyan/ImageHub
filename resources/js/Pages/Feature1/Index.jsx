@@ -5,7 +5,7 @@ import TextInput from "@/Components/TextInput";
 import InputLabel from "@/Components/InputLabel";
 import PrimaryButton from "@/Components/PrimaryButton";
 import { useForm } from "@inertiajs/react";
-import FeatureComponent from "@/Components/PrimaryButton";
+import Feature from "@/Components/Feature";
 
 export default function Index({feature, answer})
 {
@@ -26,7 +26,8 @@ export default function Index({feature, answer})
     
 
     return (
-        <FeatureComponent feature={feature} answer={answer}>
+        <Feature feature={feature} answer={answer}>
+
             <form onSubmit={submit} className="p-8 grid grid-cols-2 gap-3">
                 <div className="">
                     <InputLabel className="text-white" htmlFor="number1" value="Number 1" />
@@ -44,6 +45,6 @@ export default function Index({feature, answer})
                     <PrimaryButton className="ms-4" disabled={processing}>Calculate</PrimaryButton>
                 </div>
             </form>
-        </FeatureComponent>
+        </Feature>
     );
 }

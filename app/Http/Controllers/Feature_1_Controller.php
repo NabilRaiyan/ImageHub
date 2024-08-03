@@ -19,7 +19,7 @@ class Feature1Controller extends Controller
 
     }
 
-    public function index(Request $request)
+    public function index()
     {
         return inertia('Feature1/Index', [
             'feature' => new FeatureResource($this->feature),

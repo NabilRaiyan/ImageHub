@@ -45,7 +45,7 @@ export default function Authenticated({ user, header, children }) {
 
                             {/* User available coin */}
                             <span className='text-gray-700 flex gap-3 text-lg'>
-                                <img src='https://pngimg.com/uploads/coin/coin_PNG36871.png' className='w-[30px]' alt='coin image' />
+                                <img src='https://pngimg.com/uploads/coin/coin_PNG36871.png' className='w-[30px] h-[30px] mt-1' alt='coin image' />
                                 <p className='mt-1'>{user.available_credits} credits</p>
 
                                 <Link href='/' className='text-gray-700 py-1 px-3 rounded border transition-colors hover:text-gray-600 hover:bg-orange-200'>

@@ -20,7 +20,7 @@ export default function Feature({ feature, answer, children }) {
             <Head title="Feature 1" />
 
             <div className="py-12">
-                <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                <div className="max-w-6xl mx-auto sm:px-6 lg:px-8">
                     {answer !== null && (
                         <div className="text-white mb-3 py-3 rounded bg-emerald-600 text-xl">
                             <p className='ml-3'>Result of Calculation: {answer}</p>

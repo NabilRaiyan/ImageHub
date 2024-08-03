@@ -73,6 +73,45 @@ class CreditController extends Controller
 
     public function webhook()
     {
+        // This is a stripe CLI webhook secret for testing your endpoint locally
+        $endpoint_secret = env('STRIPE_WEBHOOK_KEY');
+
+        $payload = @file_get_contents('php://input');
+
+        $sig_header = $_SERVER['HTTP_STRIPE_SIGNATURE'];
+        $event = null;
+
+        try {
+            $event = \STRIPE\Webhook::constructEvent(
+                $payload,
+                $sig_header,
+                $endpoint_secret
+            );
+        }
+        catch(\UnexpectedValueException $e){
+            return response('', 400);
+        }
+        catch(\Stripe\Exception\SignatureVerificationException $e){
+            return response('', 400);
+        }
+
+        switch ($event->type){
+            case 'checkout.session.completed':
+
+                $session = $event->data->object;
+                $transaction = Transaction::where('session_id', $session->id)->first();
+                if ($transaction && $transaction->status === 'pending'){
+                    $transaction->status = 'paid';
+                    $transaction->save();
+
+                    $transaction->user->available_credits += $transaction->credit;
+                }
+
+                default:
+                echo 'Received unknown event type ' . $event->type;
+        }
+
+        return response('');
 
     }
 }

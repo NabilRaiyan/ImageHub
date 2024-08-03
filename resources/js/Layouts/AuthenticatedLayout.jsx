@@ -42,6 +42,13 @@ export default function Authenticated({ user, header, children }) {
                         </div>
 
                         <div className="hidden sm:flex sm:items-center sm:ms-6">
+
+                            {/* User available coin */}
+                            <span className='text-gray-700 flex gap-2'>
+                                <img src='https://pngimg.com/uploads/coin/coin_PNG36871.png' className='w-[20px]' alt='coin image' />
+                                {user.available_credits}
+                            </span>
+
                             <div className="ms-3 relative">
                                 <Dropdown>
                                     <Dropdown.Trigger>

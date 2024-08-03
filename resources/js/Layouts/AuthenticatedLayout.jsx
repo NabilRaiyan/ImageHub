@@ -48,7 +48,7 @@ export default function Authenticated({ user, header, children }) {
                                 <img src='https://pngimg.com/uploads/coin/coin_PNG36871.png' className='w-[30px] h-[30px] mt-1' alt='coin image' />
                                 <p className='mt-1'>{user.available_credits} credits</p>
 
-                                <Link href='/' className='text-gray-700 py-1 px-3 rounded border transition-colors hover:text-gray-600 hover:bg-orange-200'>
+                                <Link href={route('credit.index')} className='text-gray-700 py-1 px-3 rounded border transition-colors hover:text-gray-600 hover:bg-orange-200'>
                                     Get More Coin
                                 </Link>
                             </span>

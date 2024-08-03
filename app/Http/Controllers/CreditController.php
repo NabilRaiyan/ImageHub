@@ -9,6 +9,7 @@ use App\Models\Package;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Stripe\StripeClient;
 
 class CreditController extends Controller
 {
@@ -16,12 +17,12 @@ class CreditController extends Controller
 
     public function index()
     {
-        $package = Package::all();
-        $feature = Feature::where('active', true)->get();
+        $packages = Package::all();
+        $features = Feature::where('active', true)->get();
 
         return inertia("Credit/Index", [
-            'package' => PackageResource::collection($package),
-            'feature' => FeatureResource::collection($feature),
+            'packages' => PackageResource::collection($packages),
+            'features' => FeatureResource::collection($features),
             'success' => session('success'),
             'error' => session('error'),
         ]);
@@ -30,19 +31,19 @@ class CreditController extends Controller
 
     public function buyCredits(Package $package)
     {
-        $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET_KEY'));
+        $stripe = new StripeClient(env('STRIPE_SECRET_KEY'));
 
         $checkout_session = $stripe->checkout->sessions->create([
-            'line_items' => [
+            'line_items' => [[
                 'price_data' => [
                     'currency' => 'usd',
                     'product_data' => [
                         'name' => $package->name . '_' . $package->credits . ' credits',
                     ],
                     'unit_amount' => $package->price * 100,
-                ], 
+                ],
                 'quantity' => 1,
-            ],
+            ]],
             'mode' => 'payment',
             'success_url' => route('credit.success', [], true),
             'cancel_url' => route('credit.cancel', [], true),
@@ -56,8 +57,8 @@ class CreditController extends Controller
             'user_id' => Auth::id(),
             'package_id' => $package->id,
         ]);
-        return redirect($checkout_session->url);
 
+        return redirect($checkout_session->url);
     }
 
     public function success()
@@ -68,7 +69,6 @@ class CreditController extends Controller
     public function cancel()
     {
         return to_route('credit.index')->with('error', 'There was an error in payment process. Please try again.');
-
     }
 
     public function webhook()

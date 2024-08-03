@@ -1,9 +1,8 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head } from '@inertiajs/react';
-import CreditPricingCards from '@/Components/CreditPricingCards';
+import PackagesPricingCards from '@/Components/PackagesPricingCards';
 
-
-export default function({auth, success, error, packages, features})
+export default function Index({auth, success, error, packages, features})
 {
     const availableCredits = auth.user.available_credits;
 
@@ -30,14 +29,13 @@ export default function({auth, success, error, packages, features})
                     </div>
                 }
 
-                <div className='bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg relative'>
+                <div className='bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg relative mt-3 mb-3'>
                     <div className='flex flex-col gap-3 items-center p-4'>
                         <img src='https://pngimg.com/uploads/coin/coin_PNG36871.png' className='w-[100px]' alt='coin image' />
-                        <h3>You have {availableCredits} credits.</h3>
+                        <h3 className='text-amber-500'>You have {availableCredits} credits.</h3>
                     </div>
                 </div>
-                <CreditPricingCards packages={packages.data} features={features.data} />
-
+                <PackagesPricingCards packages={packages.data} features={features.data}></PackagesPricingCards>
             </div>
         </div>
         </AuthenticatedLayout>

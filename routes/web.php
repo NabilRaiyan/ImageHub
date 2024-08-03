@@ -24,6 +24,7 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 
+Route::post('/buy-credits/webhook', [CreditController::class, 'webhook'])->name('credit.webhook');
 
 
 Route::middleware('auth')->group(function () {
@@ -40,9 +41,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/buy-credits/success', [CreditController::class, 'success'])->name('credit.success');
     Route::get('/buy-credits/cancel', [CreditController::class, 'cancel'])->name('credit.cancel');
     Route::post('/buy-credits/{package}', [CreditController::class, 'buyCredits'])->name('credit.buy');
-
-
-
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

@@ -31,6 +31,7 @@ export default function Index({auth, success, error, packages, features})
 
                 <div className='bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg relative mt-3 mb-3'>
                     <div className='flex flex-col gap-3 items-center p-4'>
+                    {/* coing image */}
                         <img src='https://pngimg.com/uploads/coin/coin_PNG36871.png' className='w-[100px]' alt='coin image' />
                         <h3 className='text-amber-500'>You have {availableCredits} credits.</h3>
                     </div>

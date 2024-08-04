@@ -32,7 +32,7 @@ export default function PackagesPricingCards({ packages, features}){
                                 <span>{feature.name}</span>
                             </li>
                         })}
-                         
+                        
                         </ul>
                         <form action={route("credit.buy", p)} method="post" className="w-full">
                             <input type="hidden" name="_token" value={csrf_token} autoComplete="off"></input>

@@ -35,6 +35,7 @@ export default function Index({auth, success, error, packages, features})
                         <h3 className='text-amber-500'>You have {availableCredits} credits.</h3>
                     </div>
                 </div>
+                {/* Pricing card */}
                 <PackagesPricingCards packages={packages.data} features={features.data}></PackagesPricingCards>
             </div>
         </div>

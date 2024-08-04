@@ -1,5 +1,6 @@
 import { usePage } from "@inertiajs/react";
 
+// csrf token and props
 export default function PackagesPricingCards({ packages, features}){
     const { csrf_token } = usePage().props;
 

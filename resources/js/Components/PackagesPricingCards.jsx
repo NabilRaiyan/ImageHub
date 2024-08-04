@@ -6,6 +6,7 @@ export default function PackagesPricingCards({ packages, features}){
 
     return(
 
+        // creating pricing card
         <section className="bg-gray-900 sm:rounded-lg">
             <div className="py-8 px-4">
                 <div className="text-center mb-8">

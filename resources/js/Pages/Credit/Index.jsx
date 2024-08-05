@@ -7,6 +7,7 @@ export default function Index({auth, success, error, packages, features})
     const availableCredits = auth.user.available_credits;
 
     return(
+        // authenticated layout 
         <AuthenticatedLayout user={auth.user}
             header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Your Credits</h2>}
         >

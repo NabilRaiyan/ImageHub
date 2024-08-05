@@ -28,7 +28,7 @@ export default function Index({auth, success, error, packages, features})
                         {error}
                     </div>
                 }
-
+                {/* creating div to show coin image and user credit */}
                 <div className='bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg relative mt-3 mb-3'>
                     <div className='flex flex-col gap-3 items-center p-4'>
                     {/* coin image */}

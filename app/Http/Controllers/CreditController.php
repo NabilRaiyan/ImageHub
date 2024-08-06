@@ -94,6 +94,7 @@ class CreditController extends Controller
         catch(\Stripe\Exception\SignatureVerificationException $e){
             return response('', 400);
         }
+        
 
         switch ($event->type){
             case 'checkout.session.completed':

@@ -19,8 +19,6 @@ use Stripe\Exception\SignatureVerificationException;
 
 class CreditController extends Controller
 {
-    //
-
     public function index()
     {
         $packages = Package::all();

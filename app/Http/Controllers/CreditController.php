@@ -9,7 +9,13 @@ use App\Models\Package;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Stripe\StripeClient;
+
+
+
+use Stripe\Webhook;
+use Stripe\Exception\SignatureVerificationException;
 
 class CreditController extends Controller
 {
@@ -71,48 +77,52 @@ class CreditController extends Controller
         return to_route('credit.index')->with('error', 'There was an error in payment process. Please try again.');
     }
 
-    public function webhook()
+    public function webhook(Request $request)
     {
         // This is a stripe CLI webhook secret for testing your endpoint locally
         $endpoint_secret = env('STRIPE_WEBHOOK_KEY');
 
-        $payload = @file_get_contents('php://input');
-
-        $sig_header = $_SERVER['HTTP_STRIPE_SIGNATURE'];
+        $payload = $request->getContent();
+        $sig_header = $request->header('Stripe-Signature');
         $event = null;
 
+        if (!$sig_header) {
+            Log::error('Stripe signature header missing');
+            return response('', 400);
+        }
+
         try {
-            $event = \STRIPE\Webhook::constructEvent(
+            $event = Webhook::constructEvent(
                 $payload,
                 $sig_header,
                 $endpoint_secret
             );
-        }
-        catch(\UnexpectedValueException $e){
+        } catch (\UnexpectedValueException $e) {
+            Log::error('Invalid payload', ['exception' => $e]);
+            return response('', 400);
+        } catch (SignatureVerificationException $e) {
+            Log::error('Invalid signature', ['exception' => $e]);
             return response('', 400);
         }
-        catch(\Stripe\Exception\SignatureVerificationException $e){
-            return response('', 400);
-        }
-        
 
-        switch ($event->type){
+        switch ($event->type) {
             case 'checkout.session.completed':
-
                 $session = $event->data->object;
                 $transaction = Transaction::where('session_id', $session->id)->first();
-                if ($transaction && $transaction->status === 'pending'){
+                if ($transaction && $transaction->status === 'pending') {
                     $transaction->status = 'paid';
                     $transaction->save();
 
-                    $transaction->user->available_credits += $transaction->credit;
+                    $transaction->user->available_credits += $transaction->credits;
+                    $transaction->user->save(); // Don't forget to save the user changes
                 }
+                break;
 
-                default:
-                echo 'Received unknown event type ' . $event->type;
+            default:
+                Log::warning('Received unknown event type', ['type' => $event->type]);
+                return response('Received unknown event type', 400);
         }
 
-        return response('');
-
+        return response('Webhook handled', 200);
     }
 }

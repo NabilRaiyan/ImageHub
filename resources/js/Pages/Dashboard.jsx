@@ -30,6 +30,32 @@ export default function Dashboard({ auth, usedFeatures }) {
                                 </th>
                             </tr>
                             </thead>
+
+                            <tbody>
+                                {usedFeatures.data.map((usedFeature)=>(
+                                    <tr key={usedFeature.id} class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                        {usedFeature.feature.name}
+                                    </th>
+                                    <td class="px-6 py-4">
+                                        {usedFeature.credits}
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        {usedFeature.created_at}
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        {usedFeature.data}
+                                    </td>
+                                    </tr>
+                                ))}
+                                {!usedFeatures.data.length && (
+                                    <tr>
+                                        <td colSpan="4" className='text-center p-8'>
+                                            You have not used any features yet.
+                                        </td>
+                                    </tr>
+                                )}
+                            </tbody>
                         </table>
                     </div>
                     </div>

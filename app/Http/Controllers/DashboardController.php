@@ -3,15 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\UsedFeatureResource;
+use App\Models\UsedFeature;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class DashboardController extends Controller
 {
     public function index(){
-        $usedFeatures = UsedFeatureResource::query()
+        $usedFeatures = UsedFeature::query()
             ->with(['feature'])
-            ->where("used_id", auth()->user()->id)
+            ->where("user_id", auth()->user()->id)
             ->latest()
             ->paginate();
 

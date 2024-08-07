@@ -9,7 +9,7 @@ class UsedFeature extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['credits', 'feature_id', 'user_id'];
+    protected $fillable = ['credits', 'feature_id', 'user_id', 'data'];
 
     protected function casts(): array
     {
